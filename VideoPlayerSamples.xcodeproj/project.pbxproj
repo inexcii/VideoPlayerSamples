@@ -15,6 +15,7 @@
 		CAF32BBD201D5B6B007AE250 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF32BBC201D5B6B007AE250 /* main.m */; };
 		CAF32BC7201D5B6C007AE250 /* VideoPlayerSamplesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF32BC6201D5B6C007AE250 /* VideoPlayerSamplesTests.m */; };
 		CAF32BD2201D5B6C007AE250 /* VideoPlayerSamplesUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF32BD1201D5B6C007AE250 /* VideoPlayerSamplesUITests.m */; };
+		CAF32BE2201E1D55007AE250 /* PlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF32BE1201E1D55007AE250 /* PlayerView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,8 @@
 		CAF32BCD201D5B6C007AE250 /* VideoPlayerSamplesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VideoPlayerSamplesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAF32BD1201D5B6C007AE250 /* VideoPlayerSamplesUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VideoPlayerSamplesUITests.m; sourceTree = "<group>"; };
 		CAF32BD3201D5B6C007AE250 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CAF32BE0201E1D55007AE250 /* PlayerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlayerView.h; sourceTree = "<group>"; };
+		CAF32BE1201E1D55007AE250 /* PlayerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlayerView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +106,8 @@
 			children = (
 				CAF32BAD201D5B6B007AE250 /* AppDelegate.h */,
 				CAF32BAE201D5B6B007AE250 /* AppDelegate.m */,
+				CAF32BE0201E1D55007AE250 /* PlayerView.h */,
+				CAF32BE1201E1D55007AE250 /* PlayerView.m */,
 				CAF32BB0201D5B6B007AE250 /* ViewController.h */,
 				CAF32BB1201D5B6B007AE250 /* ViewController.m */,
 				CAF32BB3201D5B6B007AE250 /* Main.storyboard */,
@@ -268,6 +273,7 @@
 				CAF32BB2201D5B6B007AE250 /* ViewController.m in Sources */,
 				CAF32BBD201D5B6B007AE250 /* main.m in Sources */,
 				CAF32BAF201D5B6B007AE250 /* AppDelegate.m in Sources */,
+				CAF32BE2201E1D55007AE250 /* PlayerView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
