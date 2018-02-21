@@ -11,6 +11,8 @@
 
 @import AVFoundation;
 
+static NSString *const kVideoUrl = @"https://aka-uae-dl.uliza.jp/ad-dev/20170628/video/201707/596448bf-dfa4-49b9-82e9-46190a920004-750.mp4";
+
 @interface ViewController ()
 
 @property (weak, nonatomic) IBOutlet PlayerView *playerView;
@@ -70,8 +72,7 @@
 {
     NSLog(@"load button tapped");
     
-    NSString *videoUrlString = @"https://aka-uae-dl.uliza.jp/ad-dev/20170628/video/201707/596448bf-dfa4-49b9-82e9-46190a920004-750.mp4";
-    NSURL *videoUrl = [NSURL URLWithString:videoUrlString];
+    NSURL *videoUrl = [NSURL URLWithString:kVideoUrl];
     
 //    AVAsset *asset = [AVAsset assetWithURL:videoUrl];
     AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:videoUrl options:nil];
