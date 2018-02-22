@@ -12,11 +12,13 @@
 @import AVFoundation;
 
 static NSString *const kVideoUrl = @"https://aka-uae-dl.uliza.jp/ad-dev/20170628/video/201707/596448bf-dfa4-49b9-82e9-46190a920004-750.mp4";
+static NSString *const kInvalidVideoUrl = @"http://ad-dev.uliza.jp/work/kuchida/movie/30sec_Paris.mp4";
 
 @interface ViewController ()
 
 @property (weak, nonatomic) IBOutlet PlayerView *playerView;
 @property (nonatomic) AVPlayer *player;
+@property (nonatomic) NSTimer *timer;
 
 @end
 
@@ -66,22 +68,59 @@ static NSString *const kVideoUrl = @"https://aka-uae-dl.uliza.jp/ad-dev/20170628
     }
 }
 
-#pragma mark - IBActions
+#pragma mark - Private
+#pragma mark IBActions
 
 - (IBAction)loadButtonTapped:(id)sender
 {
     NSLog(@"load button tapped");
     
     NSURL *videoUrl = [NSURL URLWithString:kVideoUrl];
+//    NSURL *videoUrl = [NSURL URLWithString:kInvalidVideoUrl];
     
-//    AVAsset *asset = [AVAsset assetWithURL:videoUrl];
     AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:videoUrl options:nil];
     NSLog(@"asset created");
     
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(handleAssetTimeout:) userInfo:asset repeats:NO];
+    
     // retrieve asset's duration, video track and its size asynchronously
-    NSArray *keys = @[@"duration", @"tracks"];
+    NSArray *keys = @[@"playable", @"duration", @"tracks"];
     [asset loadValuesAsynchronouslyForKeys:keys completionHandler:^{
+        
         NSError *error = nil;
+        
+        AVKeyValueStatus trackStatusPlayable = [asset statusOfValueForKey:@"playable" error:&error];
+        switch (trackStatusPlayable) {
+            case AVKeyValueStatusLoaded:
+            {
+                NSLog(@"asset is playable: %ld", (long)asset.isPlayable);
+                
+                if (asset.isPlayable) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        AVPlayerItem *playerItem = [AVPlayerItem playerItemWithAsset:asset];
+                        NSLog(@"player item created");
+                        NSLog(@"playerItem's duration: %lf", CMTimeGetSeconds(playerItem.duration));
+                        
+                        self.player = [AVPlayer playerWithPlayerItem:playerItem];
+                        NSLog(@"player created");
+                        
+                        AVPlayerLayer *layer = (AVPlayerLayer *)self.playerView.layer;
+                        [layer setPlayer:self.player];
+                        NSLog(@"player set to video view's layer");
+                        
+                        [playerItem addObserver:self forKeyPath:NSStringFromSelector(@selector(status)) options:NSKeyValueObservingOptionNew context:nil];
+                        NSLog(@"observer is added on playerItem's status property");
+                    });
+                }
+            }
+                break;
+            default:
+            {
+                NSLog(@"playable cannot be retrieved due to the AVKeyValueStatus of %ld, error:%@", (long)trackStatusPlayable, error);
+            }
+                break;
+        }
+        
         AVKeyValueStatus trackStatusDuration = [asset statusOfValueForKey:@"duration" error:&error];
         switch (trackStatusDuration) {
             case AVKeyValueStatusLoaded:
@@ -109,28 +148,37 @@ static NSString *const kVideoUrl = @"https://aka-uae-dl.uliza.jp/ad-dev/20170628
                 NSLog(@"tracks cannot be retrieved due to the AVKeyValueStatus of %ld", (long)trackStatusTracks);
                 break;
         }
+        
+        [self invalidateTimer];
     }];
-    
-    
-    AVPlayerItem *playerItem = [AVPlayerItem playerItemWithAsset:asset];
-    NSLog(@"player item created");
-    NSLog(@"playerItem's duration: %lf", CMTimeGetSeconds(playerItem.duration));
-    
-    self.player = [AVPlayer playerWithPlayerItem:playerItem];
-    NSLog(@"player created");
-    
-    AVPlayerLayer *layer = (AVPlayerLayer *)self.playerView.layer;
-    [layer setPlayer:self.player];
-    NSLog(@"player set to video view's layer");
-    
-    [playerItem addObserver:self forKeyPath:NSStringFromSelector(@selector(status)) options:NSKeyValueObservingOptionNew context:nil];
-    NSLog(@"observer is added on playerItem's status property");
 }
 
 - (IBAction)playButtonTapped:(id)sender
 {
     if (self.player) {
         [self.player play];
+    }
+}
+
+#pragma mark Others
+
+- (void)handleAssetTimeout:(NSTimer *)timer
+{
+    NSLog(@"timer is fired!!!");
+    
+    AVAsset *asset = (AVAsset *)timer.userInfo;
+    [asset cancelLoading];
+}
+
+- (void)invalidateTimer
+{
+    if (self.timer) {
+        if (self.timer.isValid) {
+            NSLog(@"invalidate timer before it fires");
+            [self.timer invalidate];
+        }
+        NSLog(@"nil the timer");
+        self.timer = nil;
     }
 }
 
