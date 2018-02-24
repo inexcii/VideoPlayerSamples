@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CA1C9E8E2040FF5600B5D4D9 /* PlayerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CA1C9E8D2040FF5600B5D4D9 /* PlayerManager.m */; };
 		CAF32BAF201D5B6B007AE250 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF32BAE201D5B6B007AE250 /* AppDelegate.m */; };
 		CAF32BB2201D5B6B007AE250 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF32BB1201D5B6B007AE250 /* ViewController.m */; };
 		CAF32BB5201D5B6B007AE250 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CAF32BB3201D5B6B007AE250 /* Main.storyboard */; };
@@ -36,6 +37,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CA1C9E8C2040FF5600B5D4D9 /* PlayerManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlayerManager.h; sourceTree = "<group>"; };
+		CA1C9E8D2040FF5600B5D4D9 /* PlayerManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlayerManager.m; sourceTree = "<group>"; };
 		CAF32BAA201D5B6B007AE250 /* VideoPlayerSamples.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VideoPlayerSamples.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAF32BAD201D5B6B007AE250 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		CAF32BAE201D5B6B007AE250 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -81,6 +84,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CA1C9E8F2040FF5C00B5D4D9 /* Player */ = {
+			isa = PBXGroup;
+			children = (
+				CA1C9E902040FF7B00B5D4D9 /* UI */,
+				CA1C9E912040FF8800B5D4D9 /* Controller */,
+			);
+			path = Player;
+			sourceTree = "<group>";
+		};
+		CA1C9E902040FF7B00B5D4D9 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				CAF32BE0201E1D55007AE250 /* PlayerView.h */,
+				CAF32BE1201E1D55007AE250 /* PlayerView.m */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		CA1C9E912040FF8800B5D4D9 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				CA1C9E8C2040FF5600B5D4D9 /* PlayerManager.h */,
+				CA1C9E8D2040FF5600B5D4D9 /* PlayerManager.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 		CAF32BA1201D5B6B007AE250 = {
 			isa = PBXGroup;
 			children = (
@@ -106,8 +136,7 @@
 			children = (
 				CAF32BAD201D5B6B007AE250 /* AppDelegate.h */,
 				CAF32BAE201D5B6B007AE250 /* AppDelegate.m */,
-				CAF32BE0201E1D55007AE250 /* PlayerView.h */,
-				CAF32BE1201E1D55007AE250 /* PlayerView.m */,
+				CA1C9E8F2040FF5C00B5D4D9 /* Player */,
 				CAF32BB0201D5B6B007AE250 /* ViewController.h */,
 				CAF32BB1201D5B6B007AE250 /* ViewController.m */,
 				CAF32BB3201D5B6B007AE250 /* Main.storyboard */,
@@ -270,6 +299,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CA1C9E8E2040FF5600B5D4D9 /* PlayerManager.m in Sources */,
 				CAF32BB2201D5B6B007AE250 /* ViewController.m in Sources */,
 				CAF32BBD201D5B6B007AE250 /* main.m in Sources */,
 				CAF32BAF201D5B6B007AE250 /* AppDelegate.m in Sources */,
