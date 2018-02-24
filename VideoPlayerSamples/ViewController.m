@@ -16,9 +16,6 @@ static NSString *const kVideoUrlContent = @"https://aka-uae-dl.uliza.jp/ad-dev/2
 static NSString *const kVideoUrlAd = @"https://aka-uae-dl.uliza.jp/ad-dev/861/video/201709/59ccbde4-82c8-44b9-a621-45950a920004-750.mp4";
 static NSString *const kVideoUrlInvalid = @"http://ad-dev.uliza.jp/work/kuchida/movie/30sec_Paris.mp4";
 
-static void * ContentContext = &ContentContext;
-static void * AdContext = &AdContext;
-
 @interface ViewController ()
 
 @property (weak, nonatomic) IBOutlet PlayerView *contentPlayerView;
