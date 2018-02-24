@@ -67,7 +67,7 @@
 
 - (void)setup:(void (^)(AVPlayer *))completion
 {
-    self.mediaLoadTimer = [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(handleAssetTimeout:) userInfo:self.asset repeats:NO];
+    self.mediaLoadTimer = [NSTimer scheduledTimerWithTimeInterval:self.mediaLoadTimeout target:self selector:@selector(handleAssetTimeout:) userInfo:self.asset repeats:NO];
     
     NSArray *keys = @[@"playable", @"duration", @"tracks"];
     [self.asset loadValuesAsynchronouslyForKeys:keys completionHandler:^{

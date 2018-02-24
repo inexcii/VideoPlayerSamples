@@ -65,10 +65,12 @@ static NSString *const kVideoUrlInvalid = @"http://ad-dev.uliza.jp/work/kuchida/
     
     if (self.adPlayerManager == nil) {
         
-//        NSString *urlString = kVideoUrlAd
-        NSString *urlString = kVideoUrlInvalid;
+        NSString *urlString = kVideoUrlAd;
+//        NSString *urlString = kVideoUrlInvalid;
         
         self.adPlayerManager = [[PlayerManager alloc] initWithMedia:urlString];
+        // comment-out to set a 5.0 sec timer for loading media instead of the default value.
+//        self.adPlayerManager.mediaLoadTimeout = 5.0;
         [self.adPlayerManager setup:^(AVPlayer *player) {
             AVPlayerLayer *layer = (AVPlayerLayer *)self.adPlayerView.layer;
             [layer setPlayer:player];
