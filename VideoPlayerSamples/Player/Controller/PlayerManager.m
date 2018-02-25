@@ -11,7 +11,6 @@
 
 @interface PlayerManager()
 
-@property (nonatomic) AVAsset *asset;
 @property (nonatomic, readwrite) AVPlayer *player;
 @property (nonatomic) NSTimer *mediaLoadTimer;
 
@@ -23,7 +22,18 @@
 
 - (void)dealloc
 {
-    NSLog(@"dealloc");
+    NSLog(@"dealloc PlayerManager");
+}
+
+- (instancetype)init
+{
+    self = [super init];
+    
+    if (self) {
+        _mediaLoadTimeout = 2.0;
+    }
+    
+    return self;
 }
 
 #pragma mark KVO
@@ -56,37 +66,25 @@
 
 #pragma mark - Public
 
-- (instancetype)initWithMedia:(NSString *)urlString
+- (void)setup:(NSString *)mediaUrl completion:(void (^)(AVPlayer *))completion
 {
-    self = [super init];
+    AVAsset *asset = [[AVURLAsset alloc] initWithURL:[NSURL URLWithString:mediaUrl] options:nil];
     
-    if (self) {
-        _mediaLoadTimeout = 2.0;
-        
-        NSURL *url = [NSURL URLWithString:urlString];
-        _asset = [[AVURLAsset alloc] initWithURL:url options:nil];
-    }
-    
-    return self;
-}
-
-- (void)setup:(void (^)(AVPlayer *))completion
-{
-    self.mediaLoadTimer = [NSTimer scheduledTimerWithTimeInterval:self.mediaLoadTimeout target:self selector:@selector(handleAssetTimeout:) userInfo:self.asset repeats:NO];
+    self.mediaLoadTimer = [NSTimer scheduledTimerWithTimeInterval:self.mediaLoadTimeout target:self selector:@selector(handleAssetTimeout:) userInfo:asset repeats:NO];
     
     NSArray *keys = @[@"playable", @"duration", @"tracks"];
-    [self.asset loadValuesAsynchronouslyForKeys:keys completionHandler:^{
+    [asset loadValuesAsynchronouslyForKeys:keys completionHandler:^{
         NSError *error = nil;
         
-        AVKeyValueStatus trackStatusPlayable = [self.asset statusOfValueForKey:@"playable" error:&error];
+        AVKeyValueStatus trackStatusPlayable = [asset statusOfValueForKey:@"playable" error:&error];
         switch (trackStatusPlayable) {
             case AVKeyValueStatusLoaded:
             {
-                NSLog(@"asset is playable: %ld", (long)self.asset.isPlayable);
+                NSLog(@"asset is playable: %ld", (long)asset.isPlayable);
                 
-                if (self.asset.isPlayable) {
+                if (asset.isPlayable) {
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        AVPlayerItem *item = [AVPlayerItem playerItemWithAsset:self.asset];
+                        AVPlayerItem *item = [AVPlayerItem playerItemWithAsset:asset];
                         [item addObserver:self forKeyPath:NSStringFromSelector(@selector(status)) options:NSKeyValueObservingOptionNew context:nil];
                         NSLog(@"observer is added on playerItem's status property");
                         

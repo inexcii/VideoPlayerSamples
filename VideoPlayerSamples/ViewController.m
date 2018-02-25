@@ -46,36 +46,38 @@ static NSString *const kVideoUrlInvalid = @"http://ad-dev.uliza.jp/work/kuchida/
 {
     NSLog(@"content load button tapped");
     
-    if (self.contentPlayerManager == nil) {
-        
-        NSString *urlString = kVideoUrlContent;
-//        NSString *urlString = kVideoUrlInvalid;
-        
-        self.contentPlayerManager = [[PlayerManager alloc] initWithMedia:urlString];
-        [self.contentPlayerManager setup:^(AVPlayer *player) {
-            AVPlayerLayer *layer = (AVPlayerLayer *)self.contentPlayerView.layer;
-            [layer setPlayer:player];
-        }];
+    if (self.contentPlayerManager) {
+        self.contentPlayerManager = nil;
     }
+    
+    NSString *urlString = kVideoUrlContent;
+//    NSString *urlString = kVideoUrlInvalid;
+    
+    self.contentPlayerManager = [PlayerManager new];
+    [self.contentPlayerManager setup:urlString completion:^(AVPlayer *player) {
+        AVPlayerLayer *layer = (AVPlayerLayer *)self.contentPlayerView.layer;
+        [layer setPlayer:player];
+    }];
 }
 
 - (IBAction)adLoadButtonTapped:(id)sender
 {
     NSLog(@"ad load button tapped");
     
-    if (self.adPlayerManager == nil) {
-        
-        NSString *urlString = kVideoUrlAd;
-//        NSString *urlString = kVideoUrlInvalid;
-        
-        self.adPlayerManager = [[PlayerManager alloc] initWithMedia:urlString];
-        // comment-out to set a 5.0 sec timer for loading media instead of the default value.
-//        self.adPlayerManager.mediaLoadTimeout = 5.0;
-        [self.adPlayerManager setup:^(AVPlayer *player) {
-            AVPlayerLayer *layer = (AVPlayerLayer *)self.adPlayerView.layer;
-            [layer setPlayer:player];
-        }];
+    if (self.adPlayerManager) {
+        self.adPlayerManager = nil;
     }
+    
+    NSString *urlString = kVideoUrlAd;
+//    NSString *urlString = kVideoUrlInvalid;
+    
+    self.adPlayerManager = [PlayerManager new];
+    // comment-out to set a 5.0 sec timer for loading media instead of the default value.
+//    self.adPlayerManager.mediaLoadTimeout = 5.0;
+    [self.adPlayerManager setup:urlString completion:^(AVPlayer *player) {
+        AVPlayerLayer *layer = (AVPlayerLayer *)self.adPlayerView.layer;
+        [layer setPlayer:player];
+    }];
 }
 
 - (IBAction)contentPlayButtonTapped:(id)sender

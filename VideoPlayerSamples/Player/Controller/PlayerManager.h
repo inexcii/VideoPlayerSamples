@@ -16,8 +16,7 @@
 @property (nonatomic) NSTimeInterval mediaLoadTimeout;
 @property (nonatomic, readonly) AVPlayer *player;
 
-- (instancetype)initWithMedia:(NSString *)urlString;
-- (void)setup:(void (^)(AVPlayer *))completion;
+- (void)setup:(NSString *)mediaUrl completion:(void (^)(AVPlayer *))completion;
 - (void)play;
 - (void)pause;
 
