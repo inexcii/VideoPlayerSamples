@@ -21,6 +21,11 @@
 
 #pragma mark - Override
 
+- (void)dealloc
+{
+    NSLog(@"dealloc");
+}
+
 #pragma mark KVO
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context
