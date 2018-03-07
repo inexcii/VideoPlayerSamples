@@ -12,7 +12,8 @@
 
 @interface PlayerManager()
 
-@property (nonatomic, readwrite) AVPlayer *player;
+@property (nonatomic) AVPlayer *player;
+@property (nonatomic, nonnull) AVPlayerLayer *playerLayer;
 @property (nonatomic) NSTimer *mediaLoadTimer;
 
 @end
@@ -26,12 +27,13 @@
     NSLog(@"dealloc PlayerManager");
 }
 
-- (instancetype)init
+- (instancetype)initWithPlayerLayer:(AVPlayerLayer *)layer
 {
     self = [super init];
     
     if (self) {
         _mediaLoadTimeout = 2.0;
+        _playerLayer = layer;
     }
     
     return self;
@@ -51,6 +53,8 @@
                 
                 [self.player play];
                 NSLog(@"content begins to play");
+                
+                [self.delegate didReceivePlayerEvent:PlayerDidStartToPlay];
             }
                 break;
             case AVPlayerItemStatusFailed:
@@ -66,7 +70,7 @@
 
 #pragma mark - Public
 
-- (void)setup:(NSString *)mediaUrl completion:(void (^)(AVPlayer *))completion
+- (void)setup:(NSString *)mediaUrl
 {
     AVAsset *asset = [[AVURLAsset alloc] initWithURL:[NSURL URLWithString:mediaUrl] options:nil];
     
@@ -90,10 +94,11 @@
                         [item addObserver:self forKeyPath:NSStringFromSelector(@selector(status)) options:NSKeyValueObservingOptionNew context:nil];
                         NSLog(@"observer is added on playerItem's status property");
                         
-                        self.player = [AVPlayer playerWithPlayerItem:item];
-                        if (completion) {
-                            completion(self.player);
-                        }
+                        AVPlayer *player = [AVPlayer playerWithPlayerItem:item];
+                        [self.playerLayer setPlayer:player];
+                        
+                        self.player = player;
+                        
                     });
                 } else {
                     NSLog(@"asset is not playable");

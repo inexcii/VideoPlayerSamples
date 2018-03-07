@@ -16,7 +16,7 @@ static NSString *const kVideoUrlContent = @"https://aka-uae-dl.uliza.jp/ad-dev/2
 static NSString *const kVideoUrlAd = @"https://aka-uae-dl.uliza.jp/ad-dev/861/video/201709/59ccbde4-82c8-44b9-a621-45950a920004-750.mp4";
 static NSString *const kVideoUrlInvalid = @"http://ad-dev.uliza.jp/work/kuchida/movie/30sec_Paris.mp4";
 
-@interface ViewController ()
+@interface ViewController () <PlayerManagerDelegate>
 
 @property (weak, nonatomic) IBOutlet PlayerView *contentPlayerView;
 @property (weak, nonatomic) IBOutlet PlayerView *adPlayerView;
@@ -39,6 +39,21 @@ static NSString *const kVideoUrlInvalid = @"http://ad-dev.uliza.jp/work/kuchida/
     [super viewDidLoad];
 }
 
+#pragma mark - Delegate
+
+#pragma mark PlayerManagerDelegate
+
+- (void)didReceivePlayerEvent:(PlayerEvent)event
+{
+    switch (event) {
+        case PlayerDidStartToPlay:
+        {
+            NSLog(@"event received: player did start");
+        }
+            break;
+    }
+}
+
 #pragma mark - Private
 #pragma mark IBActions
 
@@ -53,11 +68,10 @@ static NSString *const kVideoUrlInvalid = @"http://ad-dev.uliza.jp/work/kuchida/
     NSString *urlString = kVideoUrlContent;
 //    NSString *urlString = kVideoUrlInvalid;
     
-    self.contentPlayerManager = [PlayerManager new];
-    [self.contentPlayerManager setup:urlString completion:^(AVPlayer *player) {
-        AVPlayerLayer *layer = (AVPlayerLayer *)self.contentPlayerView.layer;
-        [layer setPlayer:player];
-    }];
+    AVPlayerLayer *layer = (AVPlayerLayer *)self.contentPlayerView.layer;
+    self.contentPlayerManager = [[PlayerManager alloc] initWithPlayerLayer:layer];
+    self.contentPlayerManager.delegate = self;
+    [self.contentPlayerManager setup:urlString];
 }
 
 - (IBAction)adLoadButtonTapped:(id)sender
@@ -71,13 +85,12 @@ static NSString *const kVideoUrlInvalid = @"http://ad-dev.uliza.jp/work/kuchida/
     NSString *urlString = kVideoUrlAd;
 //    NSString *urlString = kVideoUrlInvalid;
     
-    self.adPlayerManager = [PlayerManager new];
+    AVPlayerLayer *layer = (AVPlayerLayer *)self.adPlayerView.layer;
+    self.adPlayerManager = [[PlayerManager alloc] initWithPlayerLayer:layer];
+    self.adPlayerManager.delegate = self;
     // comment-out to set a 5.0 sec timer for loading media instead of the default value.
 //    self.adPlayerManager.mediaLoadTimeout = 5.0;
-    [self.adPlayerManager setup:urlString completion:^(AVPlayer *player) {
-        AVPlayerLayer *layer = (AVPlayerLayer *)self.adPlayerView.layer;
-        [layer setPlayer:player];
-    }];
+    [self.adPlayerManager setup:urlString];
 }
 
 - (IBAction)contentPlayButtonTapped:(id)sender

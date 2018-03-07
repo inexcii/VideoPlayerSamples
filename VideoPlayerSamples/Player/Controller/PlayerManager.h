@@ -9,15 +9,30 @@
 #import <Foundation/Foundation.h>
 
 @class AVPlayer;
+@class AVPlayerLayer;
 
+typedef NS_ENUM(NSInteger, PlayerEvent) {
+    PlayerDidStartToPlay
+};
+
+NS_ASSUME_NONNULL_BEGIN
+
+@protocol PlayerManagerDelegate <NSObject>
+
+- (void)didReceivePlayerEvent:(PlayerEvent)event;
+
+@end
 
 @interface PlayerManager : NSObject
 
 @property (nonatomic) NSTimeInterval mediaLoadTimeout;
-@property (nonatomic, readonly) AVPlayer *player;
+@property (nonatomic, weak) id<PlayerManagerDelegate> delegate;
 
-- (void)setup:(NSString *)mediaUrl completion:(void (^)(AVPlayer *))completion;
+- (instancetype)initWithPlayerLayer:(AVPlayerLayer *)layer;
+- (void)setup:(NSString *)mediaUrl;
 - (void)play;
 - (void)pause;
+
+NS_ASSUME_NONNULL_END
 
 @end
