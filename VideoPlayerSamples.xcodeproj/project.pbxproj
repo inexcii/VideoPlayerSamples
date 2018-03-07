@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		CA1C9E8E2040FF5600B5D4D9 /* PlayerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CA1C9E8D2040FF5600B5D4D9 /* PlayerManager.m */; };
+		CA79FE4C20502D560086BECE /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA79FE4B20502D560086BECE /* SettingsViewController.m */; };
 		CAF32BAF201D5B6B007AE250 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF32BAE201D5B6B007AE250 /* AppDelegate.m */; };
 		CAF32BB2201D5B6B007AE250 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF32BB1201D5B6B007AE250 /* ViewController.m */; };
 		CAF32BB5201D5B6B007AE250 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CAF32BB3201D5B6B007AE250 /* Main.storyboard */; };
@@ -39,6 +40,8 @@
 /* Begin PBXFileReference section */
 		CA1C9E8C2040FF5600B5D4D9 /* PlayerManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlayerManager.h; sourceTree = "<group>"; };
 		CA1C9E8D2040FF5600B5D4D9 /* PlayerManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlayerManager.m; sourceTree = "<group>"; };
+		CA79FE4A20502D560086BECE /* SettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		CA79FE4B20502D560086BECE /* SettingsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		CAF32BAA201D5B6B007AE250 /* VideoPlayerSamples.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VideoPlayerSamples.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAF32BAD201D5B6B007AE250 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		CAF32BAE201D5B6B007AE250 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -137,6 +140,8 @@
 				CAF32BAD201D5B6B007AE250 /* AppDelegate.h */,
 				CAF32BAE201D5B6B007AE250 /* AppDelegate.m */,
 				CA1C9E8F2040FF5C00B5D4D9 /* Player */,
+				CA79FE4A20502D560086BECE /* SettingsViewController.h */,
+				CA79FE4B20502D560086BECE /* SettingsViewController.m */,
 				CAF32BB0201D5B6B007AE250 /* ViewController.h */,
 				CAF32BB1201D5B6B007AE250 /* ViewController.m */,
 				CAF32BB3201D5B6B007AE250 /* Main.storyboard */,
@@ -302,6 +307,7 @@
 				CA1C9E8E2040FF5600B5D4D9 /* PlayerManager.m in Sources */,
 				CAF32BB2201D5B6B007AE250 /* ViewController.m in Sources */,
 				CAF32BBD201D5B6B007AE250 /* main.m in Sources */,
+				CA79FE4C20502D560086BECE /* SettingsViewController.m in Sources */,
 				CAF32BAF201D5B6B007AE250 /* AppDelegate.m in Sources */,
 				CAF32BE2201E1D55007AE250 /* PlayerView.m in Sources */,
 			);

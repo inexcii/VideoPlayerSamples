@@ -31,7 +31,7 @@ static NSString *const kVideoUrlInvalid = @"http://ad-dev.uliza.jp/work/kuchida/
 
 - (void)dealloc
 {
-    NSLog(@"dealloc");
+    NSLog(@"dealloc ViewController");
 }
 
 - (void)viewDidLoad

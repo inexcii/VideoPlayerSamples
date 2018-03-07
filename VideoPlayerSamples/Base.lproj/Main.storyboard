@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="PC2-c0-H9P">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -14,7 +14,7 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ViewController" id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -59,7 +59,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8bt-M8-4UI" userLabel="Ad Player View" customClass="PlayerView">
-                                <rect key="frame" x="215" y="20" width="160" height="90"/>
+                                <rect key="frame" x="215" y="64" width="160" height="90"/>
                                 <color key="backgroundColor" red="0.65700986322813737" green="0.88564800126903553" blue="0.60805044915106143" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="160" id="1I5-4y-8pF"/>
@@ -68,7 +68,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kNW-jU-CLV">
-                                <rect key="frame" x="8" y="28" width="60" height="44"/>
+                                <rect key="frame" x="8" y="72" width="60" height="44"/>
                                 <color key="backgroundColor" red="0.90438017566797091" green="0.90438017566797091" blue="0.90438017566797091" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="g1b-e5-anT"/>
@@ -81,7 +81,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WKq-vK-wb0">
-                                <rect key="frame" x="8" y="80" width="60" height="44"/>
+                                <rect key="frame" x="8" y="124" width="60" height="44"/>
                                 <color key="backgroundColor" red="0.90438017569999996" green="0.90438017569999996" blue="0.90438017569999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <state key="normal" title="Play"/>
                                 <connections>
@@ -89,7 +89,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PiP-ay-6vB">
-                                <rect key="frame" x="76" y="28" width="60" height="44"/>
+                                <rect key="frame" x="76" y="72" width="60" height="44"/>
                                 <color key="backgroundColor" red="0.90438017569999996" green="0.90438017569999996" blue="0.90438017569999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <state key="normal" title="Pause"/>
                                 <connections>
@@ -128,6 +128,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="adPlayerView" destination="8bt-M8-4UI" id="xDr-e3-Hqm"/>
                         <outlet property="contentPlayerView" destination="3n2-o5-Xqq" id="Qkf-vB-VXu"/>
@@ -135,6 +136,45 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="754" y="112"/>
+        </scene>
+        <!--Settings View Controller-->
+        <scene sceneID="ZaP-Zp-eZP">
+            <objects>
+                <viewController id="Arb-TC-qKB" customClass="SettingsViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="UlR-LK-fUw">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="56i-1N-2Ho"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="bX8-gR-fOE">
+                        <barButtonItem key="rightBarButtonItem" title="Start" id="adB-FV-wAw">
+                            <connections>
+                                <action selector="startButtonTapped:" destination="Arb-TC-qKB" id="2iL-tS-VzV"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JO8-0t-b0z" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-52" y="112"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="UHN-Kr-E5X">
+            <objects>
+                <navigationController id="PC2-c0-H9P" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="9ay-sX-aCD">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Arb-TC-qKB" kind="relationship" relationship="rootViewController" id="1TX-TR-iia"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ggz-K1-OsN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-842" y="112"/>
         </scene>
     </scenes>
 </document>
