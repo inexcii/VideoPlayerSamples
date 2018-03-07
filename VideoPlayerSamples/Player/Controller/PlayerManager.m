@@ -8,6 +8,7 @@
 
 #import "PlayerManager.h"
 @import AVFoundation;
+@import UIKit;
 
 @interface PlayerManager()
 
@@ -46,7 +47,6 @@
         switch (playerItem.status) {
             case AVPlayerItemStatusReadyToPlay:
             {
-                NSLog(@"playerItem's duration: %lf", CMTimeGetSeconds(playerItem.duration));
                 [playerItem removeObserver:self forKeyPath:NSStringFromSelector(@selector(status)) context:context];
                 
                 [self.player play];
@@ -72,15 +72,17 @@
     
     self.mediaLoadTimer = [NSTimer scheduledTimerWithTimeInterval:self.mediaLoadTimeout target:self selector:@selector(handleAssetTimeout:) userInfo:asset repeats:NO];
     
+    NSLog(@"begin to load asset properties");
     NSArray *keys = @[@"playable", @"duration", @"tracks"];
     [asset loadValuesAsynchronouslyForKeys:keys completionHandler:^{
         NSError *error = nil;
         
-        AVKeyValueStatus trackStatusPlayable = [asset statusOfValueForKey:@"playable" error:&error];
-        switch (trackStatusPlayable) {
+        // playable
+        AVKeyValueStatus statusPlayable = [asset statusOfValueForKey:@"playable" error:&error];
+        switch (statusPlayable) {
             case AVKeyValueStatusLoaded:
             {
-                NSLog(@"asset is playable: %ld", (long)asset.isPlayable);
+                NSLog(@"is asset playable? %ld", (long)asset.isPlayable);
                 
                 if (asset.isPlayable) {
                     dispatch_async(dispatch_get_main_queue(), ^{
@@ -99,11 +101,43 @@
             }
                 break;
             default:
-            {
-                NSLog(@"asset's playable cannot be retrieved due to the AVKeyValueStatus of %ld, error:%@", (long)trackStatusPlayable, error);
-            }
+                NSLog(@"asset's playable cannot be retrieved due to the AVKeyValueStatus of %ld, error:%@", (long)statusPlayable, error);
                 break;
         }
+        
+        // duration
+        AVKeyValueStatus statusDuration = [asset statusOfValueForKey:@"duration" error:&error];
+        switch (statusDuration) {
+            case AVKeyValueStatusLoaded:
+            {
+                NSLog(@"asset duration: %lf", CMTimeGetSeconds(asset.duration));
+            }
+                break;
+            default:
+                NSLog(@"asset's duration cannot be retrieved due to the AVKeyValueStatus of %ld, error:%@", (long)statusDuration, error);
+                break;
+        }
+        
+        // tracks
+        AVKeyValueStatus statusTracks = [asset statusOfValueForKey:@"tracks" error:&error];
+        switch (statusTracks) {
+            case AVKeyValueStatusLoaded:
+            {
+                NSArray<AVAssetTrack *> *tracks = [asset tracksWithMediaType:AVMediaTypeVideo];
+                if (tracks.count > 0) {
+                    NSLog(@"tracks number: %ld", (long)tracks.count);
+                    AVAssetTrack *track = (AVAssetTrack *)[asset tracksWithMediaType:AVMediaTypeVideo][0];
+                    NSLog(@"size of 1st asset in the tracks: %@", NSStringFromCGSize(track.naturalSize));
+                } else {
+                    NSLog(@"no video track found");
+                }
+            }
+                break;
+            default:
+                NSLog(@"asset's tracks cannot be retrieved due to the AVKeyValueStatus of %ld, error:%@", (long)statusTracks, error);
+                break;
+        }
+        
         [self invalidateMediaLoadTimer];
     }];
 }
