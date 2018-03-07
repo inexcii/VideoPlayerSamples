@@ -48,7 +48,12 @@ static NSString *const kVideoUrlInvalid = @"http://ad-dev.uliza.jp/work/kuchida/
     switch (event) {
         case PlayerDidStartToPlay:
         {
-            NSLog(@"event received: player did start");
+            NSLog(@"event received: PlayerDidStartToPlay");
+        }
+            break;
+        case PlayerLayerIsReadyForDisplay:
+        {
+            NSLog(@"event received: PlayerLayerIsReadyForDisplay");
         }
             break;
     }

@@ -12,7 +12,11 @@
 @class AVPlayerLayer;
 
 typedef NS_ENUM(NSInteger, PlayerEvent) {
-    PlayerDidStartToPlay
+    /** This event is triggered right after [AVPlayer play] is called */
+    PlayerDidStartToPlay,
+    
+    /** When the new value of 'readyForDisplay' property of AVPlayerLayer is observed by the KVO */
+    PlayerLayerIsReadyForDisplay
 };
 
 NS_ASSUME_NONNULL_BEGIN

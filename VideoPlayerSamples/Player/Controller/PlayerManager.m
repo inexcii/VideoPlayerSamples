@@ -64,6 +64,15 @@
             }
                 break;
         }
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+    } else if ([keyPath isEqualToString:NSStringFromSelector(@selector(readyForDisplay))]) {
+        AVPlayerLayer *layer = (AVPlayerLayer *)object;
+        [layer removeObserver:self forKeyPath:NSStringFromSelector(@selector(readyForDisplay)) context:context];
+#pragma clang diagnostic pop
+        
+        NSLog(@"video content is ready for display");
+        [self.delegate didReceivePlayerEvent:PlayerLayerIsReadyForDisplay];
     }
 }
 
@@ -96,6 +105,11 @@
                         
                         AVPlayer *player = [AVPlayer playerWithPlayerItem:item];
                         [self.playerLayer setPlayer:player];
+                        
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+                        [self.playerLayer addObserver:self forKeyPath:NSStringFromSelector(@selector(readyForDisplay)) options:NSKeyValueObservingOptionNew context:nil];
+#pragma clang diagnostic pop
                         
                         self.player = player;
                         
