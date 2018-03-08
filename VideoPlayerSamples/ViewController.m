@@ -18,8 +18,11 @@ static NSString *const kVideoUrlInvalid = @"http://ad-dev.uliza.jp/work/kuchida/
 
 @interface ViewController () <PlayerManagerDelegate>
 
-@property (weak, nonatomic) IBOutlet PlayerView *contentPlayerView;
+@property (weak, nonatomic) IBOutlet UIView *adView;
 @property (weak, nonatomic) IBOutlet PlayerView *adPlayerView;
+
+@property (weak, nonatomic) IBOutlet PlayerView *contentPlayerView;
+
 @property (nonatomic) PlayerManager *contentPlayerManager;
 @property (nonatomic) PlayerManager *adPlayerManager;
 
@@ -37,6 +40,8 @@ static NSString *const kVideoUrlInvalid = @"http://ad-dev.uliza.jp/work/kuchida/
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [self.adView setHidden:!self.isAdDisplayed];
 }
 
 #pragma mark - Delegate

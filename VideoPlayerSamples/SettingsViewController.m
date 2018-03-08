@@ -11,6 +11,8 @@
 
 @interface SettingsViewController ()
 
+@property (weak, nonatomic) IBOutlet UISwitch *adDisplaySwitch;
+
 @end
 
 @implementation SettingsViewController
@@ -35,6 +37,7 @@
 {
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     ViewController *vc = (ViewController *)[sb instantiateViewControllerWithIdentifier:@"ViewController"];
+    vc.isAdDisplayed = self.adDisplaySwitch.isOn;
     
     [self.navigationController pushViewController:vc animated:YES];
 }
