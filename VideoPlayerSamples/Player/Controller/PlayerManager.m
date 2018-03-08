@@ -77,6 +77,8 @@ static Float64 kIntervalForPlayerTimeObserver = 0.1f;
                                                                                NSLog(@"current time is updated: %lf", weakSelf.currentTime);
                                                                                [weakSelf.delegate manager:weakSelf didReceivePlayerEvent:PlaybackTimeUpdated];
                                                                            }];
+                // add notification for playing-to-end event
+                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handlePlayingToEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:playerItem];
             }
                 break;
             case AVPlayerItemStatusFailed:
@@ -97,7 +99,6 @@ static Float64 kIntervalForPlayerTimeObserver = 0.1f;
         [self.delegate manager:self didReceivePlayerEvent:PlayerLayerIsReadyForDisplay];
     }
 }
-
 
 #pragma mark - Public
 
@@ -214,6 +215,12 @@ static Float64 kIntervalForPlayerTimeObserver = 0.1f;
         NSLog(@"nil the timer");
         self.mediaLoadTimer = nil;
     }
+}
+
+- (void)handlePlayingToEnd:(NSNotification *)notification
+{
+    NSLog(@"object of notification is %@", notification.object);
+    NSLog(@"player plays to end");
 }
 
 @end
