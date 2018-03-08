@@ -54,7 +54,7 @@
                 [self.player play];
                 NSLog(@"content begins to play");
                 
-                [self.delegate didReceivePlayerEvent:PlayerDidStartToPlay];
+                [self.delegate manager:self didReceivePlayerEvent:PlayerDidStartToPlay];
             }
                 break;
             case AVPlayerItemStatusFailed:
@@ -72,7 +72,7 @@
 #pragma clang diagnostic pop
         
         NSLog(@"video content is ready for display");
-        [self.delegate didReceivePlayerEvent:PlayerLayerIsReadyForDisplay];
+        [self.delegate manager:self didReceivePlayerEvent:PlayerLayerIsReadyForDisplay];
     }
 }
 
@@ -129,7 +129,9 @@
         switch (statusDuration) {
             case AVKeyValueStatusLoaded:
             {
-                NSLog(@"asset duration: %lf", CMTimeGetSeconds(asset.duration));
+                Float64 duration = CMTimeGetSeconds(asset.duration);
+                NSLog(@"asset duration: %lf", duration);
+                self.duration = duration;
             }
                 break;
             default:

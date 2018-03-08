@@ -10,6 +10,7 @@
 
 @class AVPlayer;
 @class AVPlayerLayer;
+@class PlayerManager;
 
 typedef NS_ENUM(NSInteger, PlayerEvent) {
     /** This event is triggered right after [AVPlayer play] is called */
@@ -23,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol PlayerManagerDelegate <NSObject>
 
-- (void)didReceivePlayerEvent:(PlayerEvent)event;
+- (void)manager:(PlayerManager *)manager didReceivePlayerEvent:(PlayerEvent)event;
 
 @end
 
@@ -31,6 +32,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic) NSTimeInterval mediaLoadTimeout;
 @property (nonatomic, weak) id<PlayerManagerDelegate> delegate;
+/** Duration of loaded AVAsset */
+@property (nonatomic) Float64 duration;
 
 - (instancetype)initWithPlayerLayer:(AVPlayerLayer *)layer;
 - (void)setup:(NSString *)mediaUrl;

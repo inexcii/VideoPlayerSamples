@@ -22,6 +22,7 @@ static NSString *const kVideoUrlInvalid = @"http://ad-dev.uliza.jp/work/kuchida/
 @property (weak, nonatomic) IBOutlet PlayerView *adPlayerView;
 
 @property (weak, nonatomic) IBOutlet PlayerView *contentPlayerView;
+@property (weak, nonatomic) IBOutlet UILabel *contentTimeLabel;
 
 @property (nonatomic) PlayerManager *contentPlayerManager;
 @property (nonatomic) PlayerManager *adPlayerManager;
@@ -48,12 +49,16 @@ static NSString *const kVideoUrlInvalid = @"http://ad-dev.uliza.jp/work/kuchida/
 
 #pragma mark PlayerManagerDelegate
 
-- (void)didReceivePlayerEvent:(PlayerEvent)event
+- (void)manager:(PlayerManager *)manager didReceivePlayerEvent:(PlayerEvent)event
 {
     switch (event) {
         case PlayerDidStartToPlay:
         {
             NSLog(@"event received: PlayerDidStartToPlay");
+            
+            if ([manager isEqual:self.contentPlayerManager]) {
+                [self updateTimeLabel:self.contentTimeLabel currentTime:0.0f duration:self.contentPlayerManager.duration];
+            }
         }
             break;
         case PlayerLayerIsReadyForDisplay:
@@ -121,6 +126,13 @@ static NSString *const kVideoUrlInvalid = @"http://ad-dev.uliza.jp/work/kuchida/
 - (IBAction)adPauseButtonTapped:(id)sender
 {
     [self.adPlayerManager pause];
+}
+
+#pragma mark Others
+
+- (void)updateTimeLabel:(UILabel *)label currentTime:(Float64)currentTime duration:(Float64)duration
+{
+    label.text = [NSString stringWithFormat:@"%.2lf/%.2lf", currentTime, duration];
 }
 
 @end
