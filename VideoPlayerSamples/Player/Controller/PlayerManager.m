@@ -10,6 +10,9 @@
 @import AVFoundation;
 @import UIKit;
 
+/** interval value(as seconds) for addPeriodicTimeObserverForInterval: which is added to AVPlayer for observing its playback progress */
+static Float64 kIntervalForPlayerTimeObserver = 0.1f;
+
 @interface PlayerManager()
 
 @property (nonatomic) AVPlayer *player;
@@ -62,9 +65,18 @@
                 [playerItem removeObserver:self forKeyPath:NSStringFromSelector(@selector(status)) context:context];
                 
                 [self.player play];
-                NSLog(@"content begins to play");
+                NSLog(@"video content is fired to play");
                 
                 [self.delegate manager:self didReceivePlayerEvent:PlayerDidStartToPlay];
+                
+                __weak PlayerManager *weakSelf = self;
+                self.playerObserver = [self.player addPeriodicTimeObserverForInterval:CMTimeMakeWithSeconds(kIntervalForPlayerTimeObserver, NSEC_PER_SEC)
+                                                                                queue:nil
+                                                                           usingBlock:^(CMTime time) {
+                                                                               weakSelf.currentTime = CMTimeGetSeconds(time);
+                                                                               NSLog(@"current time is updated: %lf", weakSelf.currentTime);
+                                                                               [weakSelf.delegate manager:weakSelf didReceivePlayerEvent:PlaybackTimeUpdated];
+                                                                           }];
             }
                 break;
             case AVPlayerItemStatusFailed:
@@ -122,14 +134,6 @@
 #pragma clang diagnostic pop
                         
                         self.player = player;
-                        
-                        __weak PlayerManager *weakSelf = self;
-                        self.playerObserver = [player addPeriodicTimeObserverForInterval:CMTimeMakeWithSeconds(0.1f, NSEC_PER_SEC)
-                                                                                   queue:nil
-                                                                              usingBlock:^(CMTime time) {
-                                                                                  weakSelf.currentTime = CMTimeGetSeconds(time);
-                                                                                  [weakSelf.delegate manager:weakSelf didReceivePlayerEvent:PlaybackTimeUpdated];
-                                                                              }];
                     });
                 } else {
                     NSLog(@"asset is not playable");
