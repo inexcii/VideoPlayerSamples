@@ -66,6 +66,11 @@ static NSString *const kVideoUrlInvalid = @"http://ad-dev.uliza.jp/work/kuchida/
             NSLog(@"event received: PlayerLayerIsReadyForDisplay");
         }
             break;
+        case PlaybackTimeUpdated:
+        {
+            [self updateTimeLabel:self.contentTimeLabel currentTime:self.contentPlayerManager.currentTime duration:self.contentPlayerManager.duration];
+        }
+            break;
     }
 }
 

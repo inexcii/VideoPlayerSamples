@@ -15,6 +15,11 @@
 @property (nonatomic) AVPlayer *player;
 @property (nonatomic, nonnull) AVPlayerLayer *playerLayer;
 @property (nonatomic) NSTimer *mediaLoadTimer;
+@property (nonatomic, readwrite) Float64 duration;
+/** current playback time of AVPlayer */
+@property (nonatomic, readwrite) Float64 currentTime;
+/** observer asset's playback time as it progresses */
+@property (nonatomic) id playerObserver;
 
 @end
 
@@ -113,6 +118,13 @@
                         
                         self.player = player;
                         
+                        __weak PlayerManager *weakSelf = self;
+                        self.playerObserver = [player addPeriodicTimeObserverForInterval:CMTimeMakeWithSeconds(0.1f, NSEC_PER_SEC)
+                                                                                   queue:nil
+                                                                              usingBlock:^(CMTime time) {
+                                                                                  weakSelf.currentTime = CMTimeGetSeconds(time);
+                                                                                  [weakSelf.delegate manager:weakSelf didReceivePlayerEvent:PlaybackTimeUpdated];
+                                                                              }];
                     });
                 } else {
                     NSLog(@"asset is not playable");

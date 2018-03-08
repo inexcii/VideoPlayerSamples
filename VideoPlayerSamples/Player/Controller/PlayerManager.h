@@ -17,7 +17,10 @@ typedef NS_ENUM(NSInteger, PlayerEvent) {
     PlayerDidStartToPlay,
     
     /** When the new value of 'readyForDisplay' property of AVPlayerLayer is observed by the KVO */
-    PlayerLayerIsReadyForDisplay
+    PlayerLayerIsReadyForDisplay,
+    
+    /** Triggered everytime playback's time is updated as the content progresses */
+    PlaybackTimeUpdated
 };
 
 NS_ASSUME_NONNULL_BEGIN
@@ -33,7 +36,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) NSTimeInterval mediaLoadTimeout;
 @property (nonatomic, weak) id<PlayerManagerDelegate> delegate;
 /** Duration of loaded AVAsset */
-@property (nonatomic) Float64 duration;
+@property (nonatomic, readonly) Float64 duration;
+@property (nonatomic, readonly) Float64 currentTime;
 
 - (instancetype)initWithPlayerLayer:(AVPlayerLayer *)layer;
 - (void)setup:(NSString *)mediaUrl;
