@@ -30,6 +30,11 @@
 - (void)dealloc
 {
     NSLog(@"dealloc PlayerManager");
+    
+    if (_player && _playerObserver) {
+        [_player removeTimeObserver:_playerObserver];
+        _playerObserver = nil;
+    }
 }
 
 - (instancetype)initWithPlayerLayer:(AVPlayerLayer *)layer
