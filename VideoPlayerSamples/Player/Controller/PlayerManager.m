@@ -67,7 +67,7 @@ static Float64 kIntervalForPlayerTimeObserver = 0.1f;
                 [self.player play];
                 NSLog(@"video content is fired to play");
                 
-                [self.delegate manager:self didReceivePlayerEvent:PlayerDidStartToPlay];
+                [self.delegate manager:self didReceivePlayerEvent:PlayerDidStartToPlay userInfo:nil];
                 
                 __weak PlayerManager *weakSelf = self;
                 self.playerObserver = [self.player addPeriodicTimeObserverForInterval:CMTimeMakeWithSeconds(kIntervalForPlayerTimeObserver, NSEC_PER_SEC)
@@ -75,7 +75,7 @@ static Float64 kIntervalForPlayerTimeObserver = 0.1f;
                                                                            usingBlock:^(CMTime time) {
                                                                                weakSelf.currentTime = CMTimeGetSeconds(time);
 //                                                                               NSLog(@"current time is updated: %lf", weakSelf.currentTime);
-                                                                               [weakSelf.delegate manager:weakSelf didReceivePlayerEvent:PlaybackTimeUpdated];
+                                                                               [weakSelf.delegate manager:weakSelf didReceivePlayerEvent:PlaybackTimeUpdated userInfo:nil];
                                                                            }];
                 // add notification for playing-to-end event
                 [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handlePlayingToEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:playerItem];
@@ -96,7 +96,7 @@ static Float64 kIntervalForPlayerTimeObserver = 0.1f;
 #pragma clang diagnostic pop
         
         NSLog(@"video content is ready for display");
-        [self.delegate manager:self didReceivePlayerEvent:PlayerLayerIsReadyForDisplay];
+        [self.delegate manager:self didReceivePlayerEvent:PlayerLayerIsReadyForDisplay userInfo:nil];
     }
 }
 
@@ -141,6 +141,11 @@ static Float64 kIntervalForPlayerTimeObserver = 0.1f;
                 }
             }
                 break;
+            case AVKeyValueStatusCancelled:
+            {
+                [self.delegate manager:self didReceivePlayerEvent:FailToLoadAsset userInfo:@{@"keyToLoad": @"playable"}];
+            }
+                break;
             default:
                 NSLog(@"asset's playable cannot be retrieved due to the AVKeyValueStatus of %ld, error:%@", (long)statusPlayable, error);
                 break;
@@ -154,6 +159,11 @@ static Float64 kIntervalForPlayerTimeObserver = 0.1f;
                 Float64 duration = CMTimeGetSeconds(asset.duration);
                 NSLog(@"asset duration: %lf", duration);
                 self.duration = duration;
+            }
+                break;
+            case AVKeyValueStatusCancelled:
+            {
+                [self.delegate manager:self didReceivePlayerEvent:FailToLoadAsset userInfo:@{@"keyToLoad": @"duration"}];
             }
                 break;
             default:
@@ -174,6 +184,11 @@ static Float64 kIntervalForPlayerTimeObserver = 0.1f;
                 } else {
                     NSLog(@"no video track found");
                 }
+            }
+                break;
+            case AVKeyValueStatusCancelled:
+            {
+                [self.delegate manager:self didReceivePlayerEvent:FailToLoadAsset userInfo:@{@"keyToLoad": @"tracks"}];
             }
                 break;
             default:
@@ -220,7 +235,7 @@ static Float64 kIntervalForPlayerTimeObserver = 0.1f;
 - (void)handlePlayingToEnd:(NSNotification *)notification
 {
     NSLog(@"player plays to end with object: %@", notification.object);
-    [self.delegate manager:self didReceivePlayerEvent:PlayToEnd];
+    [self.delegate manager:self didReceivePlayerEvent:PlayToEnd userInfo:nil];
 }
 
 @end

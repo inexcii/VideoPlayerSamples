@@ -13,6 +13,9 @@
 @class PlayerManager;
 
 typedef NS_ENUM(NSInteger, PlayerEvent) {
+    /** Player failed to load asset due to invalid video url or network timeout */
+    FailToLoadAsset,
+    
     /** This event is triggered right after [AVPlayer play] is called */
     PlayerDidStartToPlay,
     
@@ -30,7 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol PlayerManagerDelegate <NSObject>
 
-- (void)manager:(PlayerManager *)manager didReceivePlayerEvent:(PlayerEvent)event;
+- (void)manager:(PlayerManager *)manager didReceivePlayerEvent:(PlayerEvent)event userInfo:(nullable NSDictionary *)userInfo;
 
 @end
 
