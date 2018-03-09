@@ -12,8 +12,12 @@
 
 @import AVFoundation;
 
-static NSString *const kVideoUrlContent = @"https://aka-uae-dl.uliza.jp/ad-dev/20170628/video/201707/596448bf-dfa4-49b9-82e9-46190a920004-750.mp4";
-static NSString *const kVideoUrlAd = @"https://aka-uae-dl.uliza.jp/ad-dev/861/video/201709/59ccbde4-82c8-44b9-a621-45950a920004-750.mp4";
+/** 5 seconds length video */
+static NSString *const kVideoUrlSec05 = @"https://aka-uae-dl.uliza.jp/ad-dev/861/video/201710/59e859b2-2f6c-4f5b-b26f-59410a920004-750.mp4";
+/** 15 seconds length video 1 */
+static NSString *const kVideoUrlSec15_1 = @"https://aka-uae-dl.uliza.jp/ad-dev/20170628/video/201707/596448bf-dfa4-49b9-82e9-46190a920004-750.mp4";
+/** 15 seconds length video 2 */
+static NSString *const kVideoUrlSec15_2 = @"https://aka-uae-dl.uliza.jp/ad-dev/861/video/201709/59ccbde4-82c8-44b9-a621-45950a920004-750.mp4";
 static NSString *const kVideoUrlInvalid = @"http://ad-dev.uliza.jp/work/kuchida/movie/30sec_Paris.mp4";
 
 @interface ViewController () <PlayerManagerDelegate>
@@ -85,7 +89,7 @@ static NSString *const kVideoUrlInvalid = @"http://ad-dev.uliza.jp/work/kuchida/
         self.contentPlayerManager = nil;
     }
     
-    NSString *urlString = kVideoUrlContent;
+    NSString *urlString = kVideoUrlSec05;
 //    NSString *urlString = kVideoUrlInvalid;
     
     AVPlayerLayer *layer = (AVPlayerLayer *)self.contentPlayerView.layer;
@@ -102,7 +106,7 @@ static NSString *const kVideoUrlInvalid = @"http://ad-dev.uliza.jp/work/kuchida/
         self.adPlayerManager = nil;
     }
     
-    NSString *urlString = kVideoUrlAd;
+    NSString *urlString = kVideoUrlSec15_2;
 //    NSString *urlString = kVideoUrlInvalid;
     
     AVPlayerLayer *layer = (AVPlayerLayer *)self.adPlayerView.layer;

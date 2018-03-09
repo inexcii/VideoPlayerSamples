@@ -74,7 +74,7 @@ static Float64 kIntervalForPlayerTimeObserver = 0.1f;
                                                                                 queue:nil
                                                                            usingBlock:^(CMTime time) {
                                                                                weakSelf.currentTime = CMTimeGetSeconds(time);
-                                                                               NSLog(@"current time is updated: %lf", weakSelf.currentTime);
+//                                                                               NSLog(@"current time is updated: %lf", weakSelf.currentTime);
                                                                                [weakSelf.delegate manager:weakSelf didReceivePlayerEvent:PlaybackTimeUpdated];
                                                                            }];
                 // add notification for playing-to-end event
