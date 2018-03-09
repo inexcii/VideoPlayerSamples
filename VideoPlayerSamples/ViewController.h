@@ -11,7 +11,8 @@
 @interface ViewController : UIViewController
 
 @property (nonatomic) BOOL isAdDisplayed;
-
+@property (nonatomic) NSString *videoUrlContent;
+@property (nonatomic) NSString *videoUrlAd;
 
 @end
 

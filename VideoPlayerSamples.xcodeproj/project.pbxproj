@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6F042BD9205240F200385174 /* VideoData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6F042BD8205240F200385174 /* VideoData.plist */; };
+		6F042BDC205244D700385174 /* Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F042BDB205244D700385174 /* Util.m */; };
 		CA1C9E8E2040FF5600B5D4D9 /* PlayerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CA1C9E8D2040FF5600B5D4D9 /* PlayerManager.m */; };
 		CA79FE4C20502D560086BECE /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CA79FE4B20502D560086BECE /* SettingsViewController.m */; };
 		CAF32BAF201D5B6B007AE250 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF32BAE201D5B6B007AE250 /* AppDelegate.m */; };
@@ -38,6 +40,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6F042BD8205240F200385174 /* VideoData.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = VideoData.plist; sourceTree = "<group>"; };
+		6F042BDA205244D700385174 /* Util.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Util.h; sourceTree = "<group>"; };
+		6F042BDB205244D700385174 /* Util.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Util.m; sourceTree = "<group>"; };
 		CA1C9E8C2040FF5600B5D4D9 /* PlayerManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlayerManager.h; sourceTree = "<group>"; };
 		CA1C9E8D2040FF5600B5D4D9 /* PlayerManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlayerManager.m; sourceTree = "<group>"; };
 		CA79FE4A20502D560086BECE /* SettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
@@ -87,6 +92,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6F042BD7205240A900385174 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				CAF32BB6201D5B6B007AE250 /* Assets.xcassets */,
+				CAF32BB3201D5B6B007AE250 /* Main.storyboard */,
+				CAF32BB8201D5B6B007AE250 /* LaunchScreen.storyboard */,
+				6F042BD8205240F200385174 /* VideoData.plist */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		CA1C9E8F2040FF5C00B5D4D9 /* Player */ = {
 			isa = PBXGroup;
 			children = (
@@ -139,14 +155,14 @@
 			children = (
 				CAF32BAD201D5B6B007AE250 /* AppDelegate.h */,
 				CAF32BAE201D5B6B007AE250 /* AppDelegate.m */,
-				CA1C9E8F2040FF5C00B5D4D9 /* Player */,
+				6F042BDA205244D700385174 /* Util.h */,
+				6F042BDB205244D700385174 /* Util.m */,
 				CA79FE4A20502D560086BECE /* SettingsViewController.h */,
 				CA79FE4B20502D560086BECE /* SettingsViewController.m */,
 				CAF32BB0201D5B6B007AE250 /* ViewController.h */,
 				CAF32BB1201D5B6B007AE250 /* ViewController.m */,
-				CAF32BB3201D5B6B007AE250 /* Main.storyboard */,
-				CAF32BB6201D5B6B007AE250 /* Assets.xcassets */,
-				CAF32BB8201D5B6B007AE250 /* LaunchScreen.storyboard */,
+				CA1C9E8F2040FF5C00B5D4D9 /* Player */,
+				6F042BD7205240A900385174 /* Resources */,
 				CAF32BBB201D5B6B007AE250 /* Info.plist */,
 				CAF32BBC201D5B6B007AE250 /* main.m */,
 			);
@@ -279,6 +295,7 @@
 			files = (
 				CAF32BBA201D5B6B007AE250 /* LaunchScreen.storyboard in Resources */,
 				CAF32BB7201D5B6B007AE250 /* Assets.xcassets in Resources */,
+				6F042BD9205240F200385174 /* VideoData.plist in Resources */,
 				CAF32BB5201D5B6B007AE250 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -309,6 +326,7 @@
 				CAF32BBD201D5B6B007AE250 /* main.m in Sources */,
 				CA79FE4C20502D560086BECE /* SettingsViewController.m in Sources */,
 				CAF32BAF201D5B6B007AE250 /* AppDelegate.m in Sources */,
+				6F042BDC205244D700385174 /* Util.m in Sources */,
 				CAF32BE2201E1D55007AE250 /* PlayerView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

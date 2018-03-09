@@ -180,26 +180,92 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Content Video:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AAl-zi-YcV">
+                                                <rect key="frame" x="8" y="15" width="96.5" height="17"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Pm-dV-AQ5">
+                                                <rect key="frame" x="149" y="1" width="60" height="44"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="FS7-F5-HUk"/>
+                                                    <constraint firstAttribute="height" constant="44" id="kDT-Ck-Oxd"/>
+                                                </constraints>
+                                                <state key="normal" title="Select"/>
+                                                <connections>
+                                                    <action selector="contentVideoSelectButtonTapped:" destination="Arb-TC-qKB" eventType="touchUpInside" id="hVs-wE-HZX"/>
+                                                </connections>
+                                            </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ad Video:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XK0-kq-HPH">
+                                                <rect key="frame" x="8" y="52" width="62.5" height="17"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ycd-TH-YSp">
+                                                <rect key="frame" x="149" y="38" width="60" height="44"/>
+                                                <state key="normal" title="Select"/>
+                                                <connections>
+                                                    <action selector="contentVideoSelectButtonTapped:" destination="Arb-TC-qKB" eventType="touchUpInside" id="YYP-TL-Mqs"/>
+                                                </connections>
+                                            </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Display Ad Section" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ulv-5U-7eo">
-                                                <rect key="frame" x="8" y="15" width="121" height="17"/>
+                                                <rect key="frame" x="8" y="89" width="121" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="O17-KH-bbk">
-                                                <rect key="frame" x="149" y="8" width="51" height="31"/>
+                                                <rect key="frame" x="149" y="82" width="51" height="31"/>
                                             </switch>
+                                            <pickerView alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dqB-pL-Psx">
+                                                <rect key="frame" x="0.0" y="45" width="375" height="216"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <connections>
+                                                    <outlet property="dataSource" destination="Arb-TC-qKB" id="CDe-lB-3wY"/>
+                                                    <outlet property="delegate" destination="Arb-TC-qKB" id="nMn-qy-u0l"/>
+                                                </connections>
+                                            </pickerView>
+                                            <pickerView alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uxW-jI-m46">
+                                                <rect key="frame" x="0.0" y="82" width="375" height="216"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <connections>
+                                                    <outlet property="dataSource" destination="Arb-TC-qKB" id="KNU-pJ-xNq"/>
+                                                    <outlet property="delegate" destination="Arb-TC-qKB" id="dol-ad-ZK2"/>
+                                                </connections>
+                                            </pickerView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
+                                            <constraint firstItem="ycd-TH-YSp" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="XK0-kq-HPH" secondAttribute="trailing" id="06F-jp-39x"/>
+                                            <constraint firstItem="AAl-zi-YcV" firstAttribute="leading" secondItem="Ulv-5U-7eo" secondAttribute="leading" id="0ZX-r8-AqC"/>
                                             <constraint firstAttribute="height" constant="1000" id="0vs-He-OAd"/>
+                                            <constraint firstItem="ycd-TH-YSp" firstAttribute="trailing" secondItem="3Pm-dV-AQ5" secondAttribute="trailing" id="3Mh-Qk-c0A"/>
                                             <constraint firstItem="Ulv-5U-7eo" firstAttribute="leading" secondItem="FCn-nd-WjB" secondAttribute="leading" constant="8" id="3bs-bi-fvl"/>
                                             <constraint firstAttribute="bottom" secondItem="aDa-1Y-LCH" secondAttribute="bottom" id="3dG-Bp-UdH"/>
+                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="3Pm-dV-AQ5" secondAttribute="trailing" id="6JY-qD-8kx"/>
+                                            <constraint firstItem="uxW-jI-m46" firstAttribute="leading" secondItem="FCn-nd-WjB" secondAttribute="leading" id="7Np-f0-E8R"/>
+                                            <constraint firstAttribute="trailing" secondItem="uxW-jI-m46" secondAttribute="trailing" id="7Yd-Ql-Pez"/>
+                                            <constraint firstItem="3Pm-dV-AQ5" firstAttribute="leading" secondItem="O17-KH-bbk" secondAttribute="leading" priority="750" id="CfT-aU-Bvu"/>
+                                            <constraint firstItem="uxW-jI-m46" firstAttribute="top" secondItem="ycd-TH-YSp" secondAttribute="bottom" id="DfQ-7p-HKT"/>
+                                            <constraint firstItem="XK0-kq-HPH" firstAttribute="top" secondItem="AAl-zi-YcV" secondAttribute="bottom" constant="20" id="JnE-Hh-9HH"/>
+                                            <constraint firstItem="3Pm-dV-AQ5" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="AAl-zi-YcV" secondAttribute="trailing" id="L5Z-a4-0Zg"/>
+                                            <constraint firstItem="dqB-pL-Psx" firstAttribute="leading" secondItem="FCn-nd-WjB" secondAttribute="leading" id="NGF-FY-rew"/>
+                                            <constraint firstItem="dqB-pL-Psx" firstAttribute="top" secondItem="3Pm-dV-AQ5" secondAttribute="bottom" id="NKZ-6A-fy3"/>
                                             <constraint firstItem="aDa-1Y-LCH" firstAttribute="centerX" secondItem="FCn-nd-WjB" secondAttribute="centerX" id="Nv8-Qc-ttv"/>
                                             <constraint firstItem="O17-KH-bbk" firstAttribute="centerY" secondItem="Ulv-5U-7eo" secondAttribute="centerY" id="Rmr-gh-3GS"/>
+                                            <constraint firstItem="ycd-TH-YSp" firstAttribute="width" secondItem="3Pm-dV-AQ5" secondAttribute="width" id="Ryc-Rd-PmK"/>
+                                            <constraint firstAttribute="trailing" secondItem="dqB-pL-Psx" secondAttribute="trailing" id="TCM-W0-G2P"/>
+                                            <constraint firstItem="AAl-zi-YcV" firstAttribute="top" secondItem="FCn-nd-WjB" secondAttribute="top" constant="15" id="UeC-Q6-r2D"/>
+                                            <constraint firstItem="ycd-TH-YSp" firstAttribute="centerY" secondItem="XK0-kq-HPH" secondAttribute="centerY" id="c8f-kX-Lrg"/>
+                                            <constraint firstItem="3Pm-dV-AQ5" firstAttribute="centerY" secondItem="AAl-zi-YcV" secondAttribute="centerY" id="hM4-a0-lbk"/>
                                             <constraint firstItem="O17-KH-bbk" firstAttribute="leading" secondItem="Ulv-5U-7eo" secondAttribute="trailing" priority="750" constant="20" id="j8h-8e-Rz9"/>
                                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="O17-KH-bbk" secondAttribute="trailing" id="j8v-S0-PQa"/>
-                                            <constraint firstItem="Ulv-5U-7eo" firstAttribute="top" secondItem="FCn-nd-WjB" secondAttribute="top" constant="15" id="rAW-SB-zJl"/>
+                                            <constraint firstItem="ycd-TH-YSp" firstAttribute="leading" secondItem="3Pm-dV-AQ5" secondAttribute="leading" id="kw1-hg-SCk"/>
+                                            <constraint firstItem="Ulv-5U-7eo" firstAttribute="top" secondItem="XK0-kq-HPH" secondAttribute="bottom" constant="20" id="rVd-zf-30d"/>
+                                            <constraint firstItem="ycd-TH-YSp" firstAttribute="height" secondItem="3Pm-dV-AQ5" secondAttribute="height" id="uzs-zH-hTD"/>
+                                            <constraint firstItem="XK0-kq-HPH" firstAttribute="leading" secondItem="AAl-zi-YcV" secondAttribute="leading" id="whD-US-bBW"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -231,6 +297,10 @@
                     <size key="freeformSize" width="375" height="1064"/>
                     <connections>
                         <outlet property="adDisplaySwitch" destination="O17-KH-bbk" id="s2Q-SS-ahR"/>
+                        <outlet property="adVideoPicker" destination="uxW-jI-m46" id="5xf-fT-MTI"/>
+                        <outlet property="adVideoSelectButton" destination="ycd-TH-YSp" id="hd0-jO-t07"/>
+                        <outlet property="contentVideoPicker" destination="dqB-pL-Psx" id="fNJ-Mr-Bwk"/>
+                        <outlet property="contentVideoSelectButton" destination="3Pm-dV-AQ5" id="A02-Hf-Ph6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JO8-0t-b0z" userLabel="First Responder" sceneMemberID="firstResponder"/>

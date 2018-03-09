@@ -108,7 +108,7 @@ static Float64 kIntervalForPlayerTimeObserver = 0.1f;
     
     self.mediaLoadTimer = [NSTimer scheduledTimerWithTimeInterval:self.mediaLoadTimeout target:self selector:@selector(handleAssetTimeout:) userInfo:asset repeats:NO];
     
-    NSLog(@"begin to load asset properties");
+    NSLog(@"begin to load asset properties with url: %@", mediaUrl);
     NSArray *keys = @[@"playable", @"duration", @"tracks"];
     [asset loadValuesAsynchronouslyForKeys:keys completionHandler:^{
         NSError *error = nil;
