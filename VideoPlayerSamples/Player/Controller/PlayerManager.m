@@ -219,8 +219,8 @@ static Float64 kIntervalForPlayerTimeObserver = 0.1f;
 
 - (void)handlePlayingToEnd:(NSNotification *)notification
 {
-    NSLog(@"object of notification is %@", notification.object);
-    NSLog(@"player plays to end");
+    NSLog(@"player plays to end with object: %@", notification.object);
+    [self.delegate manager:self didReceivePlayerEvent:PlayToEnd];
 }
 
 @end

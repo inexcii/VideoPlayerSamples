@@ -20,7 +20,10 @@ typedef NS_ENUM(NSInteger, PlayerEvent) {
     PlayerLayerIsReadyForDisplay,
     
     /** Triggered everytime playback's time is updated as the content progresses */
-    PlaybackTimeUpdated
+    PlaybackTimeUpdated,
+    
+    /** Triggered when video plays to the end */
+    PlayToEnd
 };
 
 NS_ASSUME_NONNULL_BEGIN

@@ -75,6 +75,11 @@ static NSString *const kVideoUrlInvalid = @"http://ad-dev.uliza.jp/work/kuchida/
             [self updateTimeLabel:self.contentTimeLabel currentTime:self.contentPlayerManager.currentTime duration:self.contentPlayerManager.duration];
         }
             break;
+        case PlayToEnd:
+        {
+            NSLog(@"event received: PlayToEnd");
+        }
+            break;
     }
 }
 
