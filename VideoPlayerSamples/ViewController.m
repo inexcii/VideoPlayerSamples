@@ -19,6 +19,7 @@
 
 @property (weak, nonatomic) IBOutlet PlayerView *contentPlayerView;
 @property (weak, nonatomic) IBOutlet UILabel *contentTimeLabel;
+@property (weak, nonatomic) IBOutlet UISlider *contentSeekSlider;
 
 @property (nonatomic) PlayerManager *contentPlayerManager;
 @property (nonatomic) PlayerManager *adPlayerManager;
@@ -70,7 +71,12 @@
             break;
         case PlaybackTimeUpdated:
         {
-            [self updateTimeLabel:self.contentTimeLabel currentTime:self.contentPlayerManager.currentTime duration:self.contentPlayerManager.duration];
+            [self updateTimeLabel:self.contentTimeLabel
+                      currentTime:self.contentPlayerManager.currentTime
+                         duration:self.contentPlayerManager.duration];
+            
+            [self.contentSeekSlider setValue:(self.contentPlayerManager.currentTime / self.contentPlayerManager.duration)
+                                    animated:YES];
         }
             break;
         case PlayToEnd:
@@ -132,6 +138,26 @@
 - (IBAction)adPauseButtonTapped:(id)sender
 {
     [self.adPlayerManager pause];
+}
+
+- (IBAction)contentSeekSliderTouchedDown:(id)sender
+{
+    [self.contentPlayerManager pause];
+}
+
+- (IBAction)contentSeekSliderValueChanged:(id)sender
+{
+    UISlider *seekSlider = (UISlider *)sender;
+    
+    [self updateTimeLabel:self.contentTimeLabel
+              currentTime:self.contentPlayerManager.duration * seekSlider.value
+                 duration:self.contentPlayerManager.duration];
+}
+
+- (IBAction)contentSeekSliderTouchedUp:(id)sender
+{
+    UISlider *seekSlider = (UISlider *)sender;
+    [self.contentPlayerManager seekTo:seekSlider.value];
 }
 
 #pragma mark Others

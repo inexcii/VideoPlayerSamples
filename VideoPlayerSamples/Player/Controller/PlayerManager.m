@@ -200,6 +200,20 @@ static Float64 kIntervalForPlayerTimeObserver = 0.1f;
     }];
 }
 
+- (void)seekTo:(Float64)value
+{
+    Float64 second = self.duration * value;
+    NSLog(@"seek video to %.2lf second", second);
+    CMTime time = CMTimeMakeWithSeconds(second, NSEC_PER_SEC);
+    
+    // FIXME: Empty frame is displayed when seeking to the end of the video.
+    [self.player seekToTime:time toleranceBefore:kCMTimeZero toleranceAfter:kCMTimeZero completionHandler:^(BOOL finished) {
+        if (finished) {
+            [self play];
+        }
+    }];
+}
+
 - (void)play
 {
     [self.player play];

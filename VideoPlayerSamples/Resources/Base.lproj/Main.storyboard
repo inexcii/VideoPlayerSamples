@@ -27,7 +27,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jDa-U0-eVR">
-                                <rect key="frame" x="16" y="472" width="60" height="44"/>
+                                <rect key="frame" x="16" y="510" width="60" height="44"/>
                                 <color key="backgroundColor" red="0.90438017569999996" green="0.90438017569999996" blue="0.90438017569999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="5Zv-B3-Gih"/>
@@ -39,7 +39,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GFB-yC-NsB">
-                                <rect key="frame" x="157.5" y="472" width="60" height="44"/>
+                                <rect key="frame" x="157.5" y="510" width="60" height="44"/>
                                 <color key="backgroundColor" red="0.90438017569999996" green="0.90438017569999996" blue="0.90438017569999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="4Qb-zb-egX"/>
@@ -51,7 +51,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tgD-eR-zvW">
-                                <rect key="frame" x="299" y="472" width="60" height="44"/>
+                                <rect key="frame" x="299" y="510" width="60" height="44"/>
                                 <color key="backgroundColor" red="0.90438017569999996" green="0.90438017569999996" blue="0.90438017569999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <state key="normal" title="Pause"/>
                                 <connections>
@@ -116,8 +116,17 @@
                                     <constraint firstItem="PiP-ay-6vB" firstAttribute="height" secondItem="kNW-jU-CLV" secondAttribute="height" id="wRo-nA-cKb"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NSc-O2-Xm3" userLabel="Ad Time">
-                                <rect key="frame" x="187.5" y="447" width="0.0" height="17"/>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="srO-ZL-EgB" userLabel="Seek Slider">
+                                <rect key="frame" x="14" y="447" width="347" height="31"/>
+                                <connections>
+                                    <action selector="contentSeekSliderTouchedDown:" destination="BYZ-38-t0r" eventType="touchDown" id="bRP-6P-qQH"/>
+                                    <action selector="contentSeekSliderTouchedUp:" destination="BYZ-38-t0r" eventType="touchUpOutside" id="Aoa-gh-7co"/>
+                                    <action selector="contentSeekSliderTouchedUp:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hAJ-BK-Z9o"/>
+                                    <action selector="contentSeekSliderValueChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="isl-pu-ZAg"/>
+                                </connections>
+                            </slider>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.00/0.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NSc-O2-Xm3" userLabel="Ad Time">
+                                <rect key="frame" x="156.5" y="485" width="62.5" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -126,18 +135,21 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="tgD-eR-zvW" firstAttribute="height" secondItem="GFB-yC-NsB" secondAttribute="height" id="175-wv-ZXQ"/>
-                            <constraint firstItem="NSc-O2-Xm3" firstAttribute="top" secondItem="3n2-o5-Xqq" secondAttribute="bottom" constant="8" id="2e0-2X-7vb"/>
                             <constraint firstItem="vqY-ne-Ykp" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="3Yd-zN-357"/>
                             <constraint firstItem="3n2-o5-Xqq" firstAttribute="top" secondItem="vqY-ne-Ykp" secondAttribute="bottom" id="6c4-qp-F2K"/>
                             <constraint firstItem="3n2-o5-Xqq" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="7bu-UC-Qgk"/>
+                            <constraint firstItem="NSc-O2-Xm3" firstAttribute="top" secondItem="srO-ZL-EgB" secondAttribute="bottom" constant="8" id="8cQ-6B-OCe"/>
                             <constraint firstItem="GFB-yC-NsB" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Fbf-fE-taU"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="srO-ZL-EgB" secondAttribute="trailing" constant="16" id="HkH-Un-Uvh"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="jDa-U0-eVR" secondAttribute="trailing" constant="20" symbolic="YES" id="HmL-w1-HHi"/>
                             <constraint firstItem="3n2-o5-Xqq" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Kyd-aa-gZo"/>
                             <constraint firstItem="GFB-yC-NsB" firstAttribute="top" relation="greaterThanOrEqual" secondItem="3n2-o5-Xqq" secondAttribute="bottom" constant="33" id="Nad-zU-zFS"/>
                             <constraint firstItem="jDa-U0-eVR" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="OFM-1N-TSf"/>
                             <constraint firstItem="3n2-o5-Xqq" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="aJc-hb-CEj"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="3n2-o5-Xqq" secondAttribute="trailing" id="amP-We-8jJ"/>
+                            <constraint firstItem="srO-ZL-EgB" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="d7x-x6-ysM"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="tgD-eR-zvW" secondAttribute="trailing" constant="16" id="f1q-AU-rqM"/>
+                            <constraint firstItem="srO-ZL-EgB" firstAttribute="top" secondItem="3n2-o5-Xqq" secondAttribute="bottom" constant="8" id="gfj-gu-20z"/>
                             <constraint firstItem="vqY-ne-Ykp" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="h2D-Ml-5Sk"/>
                             <constraint firstItem="tgD-eR-zvW" firstAttribute="width" secondItem="GFB-yC-NsB" secondAttribute="width" id="jb2-V2-ToX"/>
                             <constraint firstItem="GFB-yC-NsB" firstAttribute="top" secondItem="NSc-O2-Xm3" secondAttribute="bottom" constant="8" id="kmj-1K-D3J"/>
@@ -153,6 +165,7 @@
                         <outlet property="adPlayerView" destination="8bt-M8-4UI" id="xDr-e3-Hqm"/>
                         <outlet property="adView" destination="vqY-ne-Ykp" id="MUM-3W-plI"/>
                         <outlet property="contentPlayerView" destination="3n2-o5-Xqq" id="Qkf-vB-VXu"/>
+                        <outlet property="contentSeekSlider" destination="srO-ZL-EgB" id="w3G-dg-EQh"/>
                         <outlet property="contentTimeLabel" destination="NSc-O2-Xm3" id="EqJ-os-1Sa"/>
                     </connections>
                 </viewController>

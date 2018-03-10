@@ -47,6 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithPlayerLayer:(AVPlayerLayer *)layer;
 - (void)setup:(NSString *)mediaUrl;
+- (void)seekTo:(Float64)value;
 - (void)play;
 - (void)pause;
 
