@@ -21,6 +21,7 @@ static Float64 kIntervalForPlayerTimeObserver = 0.1f;
 @property (nonatomic, readwrite) Float64 duration;
 /** current playback time of AVPlayer */
 @property (nonatomic, readwrite) Float64 currentTime;
+@property (nonatomic, readwrite) Float64 bufferedTime;
 /** observer asset's playback time as it progresses */
 @property (nonatomic) id playerObserver;
 
@@ -38,6 +39,8 @@ static Float64 kIntervalForPlayerTimeObserver = 0.1f;
         [_player removeTimeObserver:_playerObserver];
         _playerObserver = nil;
     }
+    
+    [_player.currentItem removeObserver:self forKeyPath:NSStringFromSelector(@selector(loadedTimeRanges)) context:nil];
 }
 
 - (instancetype)initWithPlayerLayer:(AVPlayerLayer *)layer
@@ -79,6 +82,12 @@ static Float64 kIntervalForPlayerTimeObserver = 0.1f;
                                                                            }];
                 // add notification for playing-to-end event
                 [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handlePlayingToEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:playerItem];
+                
+                // add KVO on loadedTimeRange to retrieve buffered time of video
+                [playerItem addObserver:self
+                             forKeyPath:NSStringFromSelector(@selector(loadedTimeRanges))
+                                options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
+                                context:nil];
             }
                 break;
             case AVPlayerItemStatusFailed:
@@ -97,6 +106,17 @@ static Float64 kIntervalForPlayerTimeObserver = 0.1f;
         
         NSLog(@"video content is ready for display");
         [self.delegate manager:self didReceivePlayerEvent:PlayerLayerIsReadyForDisplay userInfo:nil];
+    } else if ([keyPath isEqualToString:NSStringFromSelector(@selector(loadedTimeRanges))]) {
+        AVPlayerItem *playerItem = (AVPlayerItem *)object;
+        NSArray<NSValue *> *ranges = playerItem.loadedTimeRanges;
+//        NSLog(@"loadedTimeRanges: %@", ranges);
+        if (ranges.count > 0) {
+            CMTimeRange range = [ranges[0] CMTimeRangeValue];
+            self.bufferedTime = CMTimeGetSeconds(range.start) + CMTimeGetSeconds(range.duration);
+            [self.delegate manager:self didReceivePlayerEvent:PlayBufferUpdated userInfo:nil];
+        } else {
+            NSLog(@"loadedTimeRanges does not contain any value");
+        }
     }
 }
 

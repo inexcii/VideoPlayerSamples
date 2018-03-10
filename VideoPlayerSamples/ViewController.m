@@ -60,7 +60,7 @@
             NSLog(@"event received: PlayerDidStartToPlay");
             
             if ([manager isEqual:self.contentPlayerManager]) {
-                [self updateTimeLabel:self.contentTimeLabel currentTime:0.0f duration:self.contentPlayerManager.duration];
+                [self updateTime];
             }
         }
             break;
@@ -71,12 +71,14 @@
             break;
         case PlaybackTimeUpdated:
         {
-            [self updateTimeLabel:self.contentTimeLabel
-                      currentTime:self.contentPlayerManager.currentTime
-                         duration:self.contentPlayerManager.duration];
-            
+            [self updateTime];
             [self.contentSeekSlider setValue:(self.contentPlayerManager.currentTime / self.contentPlayerManager.duration)
                                     animated:YES];
+        }
+            break;
+        case PlayBufferUpdated:
+        {
+            NSLog(@"event received: PlayBufferUpdated with info: %lf", self.contentPlayerManager.bufferedTime);
         }
             break;
         case PlayToEnd:
@@ -149,9 +151,9 @@
 {
     UISlider *seekSlider = (UISlider *)sender;
     
-    [self updateTimeLabel:self.contentTimeLabel
-              currentTime:self.contentPlayerManager.duration * seekSlider.value
-                 duration:self.contentPlayerManager.duration];
+    [self updateTimeByCurrentTime:self.contentPlayerManager.duration * seekSlider.value
+                     bufferedTime:self.contentPlayerManager.bufferedTime
+                         duration:self.contentPlayerManager.duration];
 }
 
 - (IBAction)contentSeekSliderTouchedUp:(id)sender
@@ -162,9 +164,16 @@
 
 #pragma mark Others
 
-- (void)updateTimeLabel:(UILabel *)label currentTime:(Float64)currentTime duration:(Float64)duration
+- (void)updateTime
 {
-    label.text = [NSString stringWithFormat:@"%.2lf/%.2lf", currentTime, duration];
+    [self updateTimeByCurrentTime:self.contentPlayerManager.currentTime
+                     bufferedTime:self.contentPlayerManager.bufferedTime
+                         duration:self.contentPlayerManager.duration];
+}
+
+- (void)updateTimeByCurrentTime:(Float64)currentTime bufferedTime:(Float64)bufferedTime duration:(Float64)duration
+{
+    self.contentTimeLabel.text = [NSString stringWithFormat:@"%.2lf/%.2lf/%.2lf", currentTime, bufferedTime, duration];
 }
 
 - (void)presentAssetLoadAlertWithLoadingKey:(NSString *)key

@@ -25,6 +25,12 @@ typedef NS_ENUM(NSInteger, PlayerEvent) {
     /** Triggered everytime playback's time is updated as the content progresses */
     PlaybackTimeUpdated,
     
+    /**
+     * Triggered everytime when player buffers more
+     * @note retrieve the updated buffer value from 'bufferedTime' property
+     */
+    PlayBufferUpdated,
+    
     /** Triggered when video plays to the end */
     PlayToEnd
 };
@@ -44,6 +50,8 @@ NS_ASSUME_NONNULL_BEGIN
 /** Duration of loaded AVAsset */
 @property (nonatomic, readonly) Float64 duration;
 @property (nonatomic, readonly) Float64 currentTime;
+/** Buffered time of player, updated everytime when PlayBufferUpdated event is triggered */
+@property (nonatomic, readonly) Float64 bufferedTime;
 
 - (instancetype)initWithPlayerLayer:(AVPlayerLayer *)layer;
 - (void)setup:(NSString *)mediaUrl;
