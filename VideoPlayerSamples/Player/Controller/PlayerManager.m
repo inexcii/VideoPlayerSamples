@@ -27,6 +27,8 @@ static Float64 kMediaLoadTimeoutSeconds = 2.0f;
 @property (nonatomic, readwrite) Float64 bufferedTime;
 /** observer asset's playback time as it progresses */
 @property (nonatomic) id playerObserver;
+/** Whether the player has constrained all the buffer and is storing the new buffers */
+@property (nonatomic) BOOL isPlayerBuffering;
 
 @end
 
@@ -44,6 +46,12 @@ static Float64 kMediaLoadTimeoutSeconds = 2.0f;
     }
     
     [_player.currentItem removeObserver:self forKeyPath:NSStringFromSelector(@selector(loadedTimeRanges)) context:nil];
+    
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+    [_player.currentItem removeObserver:self forKeyPath:NSStringFromSelector(@selector(playbackBufferEmpty)) context:nil];
+    [_player.currentItem removeObserver:self forKeyPath:NSStringFromSelector(@selector(playbackLikelyToKeepUp)) context:nil];
+#pragma clang diagnostic pop
 }
 
 - (instancetype)initWithPlayerLayer:(AVPlayerLayer *)layer
@@ -126,6 +134,29 @@ static Float64 kMediaLoadTimeoutSeconds = 2.0f;
         } else {
             NSLog(@"loadedTimeRanges does not contain any value");
         }
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+    } else if ([keyPath isEqualToString:NSStringFromSelector(@selector(playbackBufferEmpty))]) {
+        AVPlayerItem *item = (AVPlayerItem *)object;
+        if (item.playbackBufferEmpty) {
+            NSLog(@"playback's buffer becomes empty, starts to buffer");
+            self.isPlayerBuffering = YES;
+            
+            // If necessary, add code to handle the situation when player starts to store new buffers, such as displaying a buffer-loading view.
+            
+        }
+    } else if ([keyPath isEqualToString:NSStringFromSelector(@selector(playbackLikelyToKeepUp))]) {
+        AVPlayerItem *item = (AVPlayerItem *)object;
+        NSLog(@"playbackLikelyToKeepUp: %ld", (long)item.isPlaybackLikelyToKeepUp);
+        if (item.isPlaybackLikelyToKeepUp && self.isPlayerBuffering) {
+            NSLog(@"resume the player after getting enough buffer");
+            
+            // If necessary, add code to handle the situation when player has stored the enough buffer and likely to play the video continuously.
+            
+            [self.player play];
+            self.isPlayerBuffering = NO;
+        }
+#pragma clang diagnostic pop
     }
 }
 
@@ -152,14 +183,24 @@ static Float64 kMediaLoadTimeoutSeconds = 2.0f;
                 if (asset.isPlayable) {
                     dispatch_async(dispatch_get_main_queue(), ^{
                         AVPlayerItem *item = [AVPlayerItem playerItemWithAsset:asset];
+                        // KVO on AVPlayerItem.status
                         [item addObserver:self forKeyPath:NSStringFromSelector(@selector(status)) options:NSKeyValueObservingOptionNew context:nil];
                         NSLog(@"observer is added on playerItem's status property");
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+                        // KVO on AVPlayerItem.playbackBufferEmpty
+                        [item addObserver:self forKeyPath:NSStringFromSelector(@selector(playbackBufferEmpty)) options:NSKeyValueObservingOptionNew context:nil];
+                        // KVO on AVPlayerItem.playbackLikelyToKeepUp
+                        [item addObserver:self forKeyPath:NSStringFromSelector(@selector(playbackLikelyToKeepUp)) options:NSKeyValueObservingOptionNew context:nil];
+#pragma clang diagnostic pop
                         
                         AVPlayer *player = [AVPlayer playerWithPlayerItem:item];
                         [self.playerLayer setPlayer:player];
                         
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"
+                        // KVO on AVPlayerLayer.readyForDisplay
                         [self.playerLayer addObserver:self forKeyPath:NSStringFromSelector(@selector(readyForDisplay)) options:NSKeyValueObservingOptionNew context:nil];
 #pragma clang diagnostic pop
                         
