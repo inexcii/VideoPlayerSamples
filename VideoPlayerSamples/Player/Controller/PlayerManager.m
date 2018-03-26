@@ -53,6 +53,12 @@ static Float64 kMediaLoadTimeoutSeconds = 2.0f;
     if (self) {
         _mediaLoadTimeout = kMediaLoadTimeoutSeconds;
         _playerLayer = layer;
+        
+        NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+        [nc addObserver:self selector:@selector(appWillResignActive) name:UIApplicationWillResignActiveNotification object:nil];
+        [nc addObserver:self selector:@selector(appDidEnterBackground) name:UIApplicationDidEnterBackgroundNotification object:nil];
+        [nc addObserver:self selector:@selector(appWillEnterForeground) name:UIApplicationWillEnterForegroundNotification object:nil];
+        [nc addObserver:self selector:@selector(appDidBecomeActive) name:UIApplicationDidBecomeActiveNotification object:nil];
     }
     
     return self;
@@ -273,6 +279,28 @@ static Float64 kMediaLoadTimeoutSeconds = 2.0f;
 {
     NSLog(@"player plays to end with object: %@", notification.object);
     [self.delegate manager:self didReceivePlayerEvent:PlayToEnd userInfo:nil];
+}
+
+#pragma mark Foreground & Background Switch
+
+- (void)appWillResignActive
+{
+    NSLog(@"app will resign active");
+}
+
+- (void)appDidEnterBackground
+{
+    NSLog(@"app did enter background");
+}
+
+- (void)appWillEnterForeground
+{
+    NSLog(@"app will enter foreground");
+}
+
+- (void)appDidBecomeActive
+{
+    NSLog(@"app did become active");
 }
 
 @end
