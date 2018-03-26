@@ -13,6 +13,9 @@
 /** interval value(as seconds) for addPeriodicTimeObserverForInterval: which is added to AVPlayer for observing its playback progress */
 static Float64 kIntervalForPlayerTimeObserver = 0.1f;
 
+/** default timeout value(seconds) of loading a video media */
+static Float64 kMediaLoadTimeoutSeconds = 2.0f;
+
 @interface PlayerManager()
 
 @property (nonatomic) AVPlayer *player;
@@ -48,7 +51,7 @@ static Float64 kIntervalForPlayerTimeObserver = 0.1f;
     self = [super init];
     
     if (self) {
-        _mediaLoadTimeout = 2.0;
+        _mediaLoadTimeout = kMediaLoadTimeoutSeconds;
         _playerLayer = layer;
     }
     

@@ -45,6 +45,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface PlayerManager : NSObject
 
+/** A timeout value for loading the video media, typically with calling loadValuesAsynchronouslyForKeys: of AVAsset class */
 @property (nonatomic) NSTimeInterval mediaLoadTimeout;
 @property (nonatomic, weak) id<PlayerManagerDelegate> delegate;
 /** Duration of loaded AVAsset */
